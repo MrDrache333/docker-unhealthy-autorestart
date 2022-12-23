@@ -30,6 +30,32 @@ This will pull the mrdrache333/unhealthy-autostart image from Docker Hub and sta
 script will run automatically when the container starts, and it will continue running in the background until the
 container is stopped.
 
+## Environment Variables
+
+### BOT_API_KEY
+
+The BOT_API_KEY is the API token for your bot, which is used to authenticate the bot and authorize it to perform actions
+on behalf of your account.
+
+### CHAT_ID
+
+The CHAT_ID is the unique identifier for the chat or group where you want the bot to send notifications.
+
+### HOST_ALIAS
+
+The HOST_ALIAS is an optional field that allows you to specify a custom alias for the host where the bot is running.
+This alias will be used in the notifications sent by the bot.
+
+### BLACKLIST
+
+The BLACKLIST is an optional field that allows you to specify a list of containers that will not be restarted by the
+bot. The list should be a space-separated string of container names.
+
+### NOTIFY_BLACKLIST
+
+The NOTIFY_BLACKLIST is an optional field that allows you to specify a list of containers that will be restarted by the
+bot, but without sending a notification
+
 ## Usage
 
 To stop the container, run the following command:
