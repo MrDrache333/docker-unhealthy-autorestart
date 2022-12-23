@@ -1,4 +1,8 @@
 # Automatically restart unhealthy docker containers
+[![Create and publish Docker image](https://github.com/MrDrache333/docker-unhealthy-autorestart/workflows/Create%20and%20publish%20Docker%20image/badge.svg)](https://github.com/MrDrache333/docker-unhealthy-autorestart/actions?query=workflow:"Create+and+publish+Docker+image")
+[![GitHub release](https://img.shields.io/github/release/MrDrache333/docker-unhealthy-autorestart?include_prereleases=&sort=semver&color=blue)](https://github.com/MrDrache333/docker-unhealthy-autorestart/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![issues - docker-unhealthy-autorestart](https://img.shields.io/github/issues/MrDrache333/docker-unhealthy-autorestart)](https://github.com/MrDrache333/docker-unhealthy-autorestart/issues)
 
 This script is designed to monitor the health of Docker containers and automatically restart any unhealthy containers.
 It also sends a notification to a Telegram chat when a container is restarted.
