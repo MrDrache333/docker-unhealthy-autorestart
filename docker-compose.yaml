@@ -1,7 +1,7 @@
 version: '3'
 services:
   unhealthy-autostart:
-    image: mrdrache333/unhealthy-autostart
+    image: ghcr.io/mrdrache333/docker-unhealthy-autorestart:master
     environment:
       - BOT_API_KEY=BOT_API_TOKEN
       - CHAT_ID=YOUR_CHAT_ID
