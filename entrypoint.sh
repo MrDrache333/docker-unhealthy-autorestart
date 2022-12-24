@@ -23,6 +23,13 @@ if [ -z "$HOST_ALIAS" ]; then
   exit 1
 fi
 
+# Check if START_MESSAGE is set
+if "$START_MESSAGE" = "true" ; then
+  curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AWatchdog started!"
+else
+  echo "Container started."
+fi
+
 # Load env variables
 blacklist=${BLACKLIST:-}
 notify_blacklist=${NOTIFY_BLACKLIST:-}

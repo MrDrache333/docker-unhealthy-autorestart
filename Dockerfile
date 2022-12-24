@@ -1,7 +1,8 @@
-FROM ubuntu:20.04
+FROM alpine:latest
 
-# Install bash
-RUN apt-get update && apt-get install -y bash curl docker.io cron
+# Install bash, curl, docker.io, and cron
+RUN apk add bash curl docker docker-cli cronie
+
 # Add the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
