@@ -59,18 +59,18 @@ while true; do
   # Restart each unhealthy container and send a message to Telegram
   for container in $unhealthy_containers; do
     # Skip blacklisted containers
-    if ! $container in "${blacklist[@]}"; then
+    if "$container" in "${blacklist[@]}"; then
       continue
     fi
     # Restart the container and check the exit code
     if ! docker restart "$container"; then
-      if ! $container in "${notify_blacklist[@]}"; then
+      if ! "$container" in "${notify_blacklist[@]}"; then
         # If the restart command fails, print an error message
         >&2 echo "Error: Failed to restart container $container"
         curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AAn unhealthy container has been found but cant be restarted: $container"
       fi
     else
-      if ! $container in "${notify_blacklist[@]}"; then
+      if ! "$container" in "${notify_blacklist[@]}"; then
         echo "The Container $container was restarted"
         curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AAn unhealthy container has been restarted: $container"
       fi
