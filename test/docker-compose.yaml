@@ -1,0 +1,33 @@
+version: '3'
+services:
+  unhealthy-autostart:
+    image: ghcr.io/mrdrache333/docker-unhealthy-autorestart
+    environment:
+      - BOT_API_KEY=BOT_API_TOKEN
+      - CHAT_ID=YOUR_CHAT_ID
+      - HOST_ALIAS=MyHost
+      # Optional: Blacklisted containers that will not be restarted
+      - BLACKLIST=test1 test2
+      # Optional: Blacklisted containers that will be restarted, but without notification
+      - NOTIFY_BLACKLIST=test3
+      # Optional: Send Notification when container started (Default=false)
+      - START_MESSAGE=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    depends_on:
+      - test1
+      - test2
+      - test3
+      - test4
+  test1:
+    image: mrdrache333/unhealthy-container
+    container_name: test1
+  test2:
+    image: mrdrache333/unhealthy-container
+    container_name: test2
+  test3:
+    image: mrdrache333/unhealthy-container
+    container_name: test3
+  test4:
+    image: mrdrache333/unhealthy-container
+    container_name: test4
