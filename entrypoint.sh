@@ -31,8 +31,9 @@ else
 fi
 
 # Load env variables
-blacklist=${BLACKLIST:-}
-notify_blacklist=${NOTIFY_BLACKLIST:-}
+
+read -ra blacklist <<< "$BLACKLIST"
+read -ra notify_blacklist <<< "$NOTIFY_BLACKLIST"
 
 # Check variables for presence and set default if not
 if [[ -z $blacklist ]]; then
