@@ -74,14 +74,20 @@ while true; do
     # Restart the container and check the exit code
     if ! docker restart "$container"; then
       >&2 echo "Error: Failed to restart container $container"
-      if [[ "${notify_blacklist[*]}" == *"$container"* ]]; then
+      if [[ ! "${notify_blacklist[*]}" == *"$container"* ]]; then
         # If the restart command fails, print an error message
-        curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AAn unhealthy container has been found but cant be restarted: $container"
+        response_code=$(curl -s -w "%{http_code}" -o /dev/null -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AAn unhealthy container has been found but cant be restarted: $container")
+        if [ "$response_code" -ne 200 ]; then
+          echo "Error $response_code when trying to send a Telegram message"
+        fi
       fi
     else
       echo "The Container $container was restarted"
-      if [[ "${notify_blacklist[*]}" == *"$container"* ]]; then
-        curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AAn unhealthy container has been restarted: $container"
+      if [[ ! "${notify_blacklist[*]}" == *"$container"* ]]; then
+        response_code=$(curl -s -w "%{http_code}" -o /dev/null -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="*$HOST_ALIAS*%0AAn unhealthy container has been restarted: $container")
+        if [ "$response_code" -ne 200 ]; then
+          echo "Error $response_code when trying to send a Telegram message"
+        fi
       fi
     fi
   done
