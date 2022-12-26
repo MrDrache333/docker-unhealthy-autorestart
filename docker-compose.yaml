@@ -7,9 +7,9 @@ services:
       - CHAT_ID=YOUR_CHAT_ID
       - HOST_ALIAS=MyHost
       # Optional: Blacklisted containers that will not be restarted
-      - BLACKLIST=container1 container2
+      - BLACKLIST="container1 container2"
       # Optional: Blacklisted containers that will be restarted, but without notification
-      - NOTIFY_BLACKLIST=container1 container2
+      - NOTIFY_BLACKLIST="container1 container2"
       # Optional: Send Notification when container started (Default=false)
       - START_MESSAGE=true
     volumes:
