@@ -59,10 +59,13 @@ while true; do
   fi
 
   echo "Checking for unhealthy containers"
-  set -e
 
   # Get the names of all unhealthy containers
-  unhealthy_containers=$(docker ps --filter "health=unhealthy" | tail -n +2 | awk '{print $NF}')
+  if ! unhealthy_containers=$(docker ps --format '{{.Names}}' --filter health=unhealthy); then
+    >&2 echo "docker ps failed, retry in 60s"
+    sleep 60
+    continue
+  fi
 
   # Restart each unhealthy container and send a message to Telegram
   for container in $unhealthy_containers; do
